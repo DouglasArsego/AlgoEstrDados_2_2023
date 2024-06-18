@@ -1,0 +1,73 @@
+import os
+import django
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+django.setup()
+
+from precos.models import Preco
+from produtos.models import Produto
+from itens_lista_compra.models import ItemListaCompra
+from listas_compra.models import ListaCompra
+from mercados.models import Mercado
+from usuarios.models import Usuario 
+
+
+def preencher_tabelas():
+    
+    # Preencher Produto
+    dados_produto = [
+        {'nome': 'Arroz', 'unidade': 'kg', 'marca': 'camil'},
+        {'nome': 'Feijao', 'unidade': 'kg', 'marca': 'kicaldo'},
+    ]
+    for dado in dados_produto:
+        Produto.objects.create(**dado)
+    print("Tabela Produto preenchida.")
+
+    # Preencher Mercado
+    dados_mercado = [
+        {'nome': 'Zaffari', 'endereco': 'Rua Coronel', 'distancia': '3'},
+        {'nome': 'Cotrisal', 'endereco': 'Rua Caxias', 'distancia': '7'},
+    ]
+    for dado in dados_mercado:
+        Mercado.objects.create(**dado)
+    print("Tabela Mercado preenchida.")
+
+    # Preencher Preco
+    dados_preco = [
+        {'data': '2024-06-10', 'valor': 15, 'mercado_id': '3', 'produto_id': '2'},
+        {'data': '2024-06-10', 'valor': 10, 'mercado_id': '4', 'produto_id': '3'},
+    ]
+    for dado in dados_preco:
+        Preco.objects.create(**dado)
+    print("Tabela Preco preenchida.")
+
+    # Preencher Usuario
+    dados_usuario = [
+        {'nome': 'Marcelo', 'email': 'marcelo@gmail.com', 'senha': '123', 'endereco': 'rua chaves'},
+        {'nome': 'Thais', 'email': 'thais@gmail.com', 'senha': '123', 'endereco': 'rua coqueiros'},
+    ]
+    for dado in dados_usuario:
+        Usuario.objects.create(**dado)
+    print("Tabela Usuario preenchida.")
+    
+    # Preencher Item Lista Compra
+    dados_lista_compra = [
+        {'data': '2024-06-10', 'usuario': 2},
+        {'data': '2024-06-10', 'usuario': 3},
+    ]
+    for dado in dados_lista_compra:
+        ListaCompra.objects.create(**dado)
+    print("Tabela Item Lista Compra preenchida.")
+
+    # Preencher Itens Lista Compra
+    dados_item_lista_compra = [
+        {'quantidade': 1, 'lista': 2, 'produto': '2'},
+        {'quantidade': 1, 'lista': 3, 'produto': '3'},
+    ]
+    for dado in dados_item_lista_compra:
+        ItemListaCompra.objects.create(**dado)
+    print("Tabela Lista Compra preenchida.")
+
+
+if __name__ == "__main__":
+    preencher_tabelas()
